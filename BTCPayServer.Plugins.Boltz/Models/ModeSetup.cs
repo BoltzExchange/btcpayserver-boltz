@@ -3,14 +3,19 @@ using System;
 using System.Collections.Generic;
 using Autoswaprpc;
 using Boltzrpc;
+using BTCPayServer.Data;
 using NBitcoin;
 
 namespace BTCPayServer.Plugins.Boltz.Models;
 
 public class ModeSetup
 {
-    public bool AllowRebalance { get; set; }
+    public StoreData? RebalanceStore { get; set; }
+    public bool IsAdmin { get; set; }
     public bool HasInternal { get; set; }
+
+    public bool AllowStandalone { get; set; }
+    public bool AllowRebalance => IsAdmin && HasInternal && RebalanceStore is null;
 }
 
 public enum WalletImportMethod
